@@ -65,7 +65,7 @@ public class Convertor {
                 this.convertFile(file, fromCharsetName, toCharsetName,this.skipExts);
             }
         } catch (Exception e) {
-            logger.info("该文件没有转码:"+e.getMessage());
+            logger.info("文件"+file.getAbsolutePath()+"没有转码,case:"+e.getMessage());
         }
     }
     /**
