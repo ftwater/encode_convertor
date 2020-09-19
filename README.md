@@ -11,7 +11,7 @@
 #### TODO
 - ~~支持自定义编码~~
 
-#### usage
+#### 示例
 默认转换编码为:`UTF-8` 转换为 `GBK`
 ```java
 java encode_convertor.jar -p [目标目录]
