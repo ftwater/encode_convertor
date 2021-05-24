@@ -1,4 +1,4 @@
-package com.yonyou.convertor.strategy;
+package io.ftwater.convertor.strategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +46,9 @@ public enum ConvertStrategyEnum {
     }
 
     public static Map<String, String> getAllConvertStrategyClazz() {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         for (ConvertStrategyEnum strategy : values()) {
-            map.put(strategy.getStrategyCode().trim(), "com.yonyou.convertor.strategy." + strategy.getClazz());
+            map.put(strategy.getStrategyCode().trim(), "io.ftwater.convertor.strategy." + strategy.getClazz());
         }
         return map;
     }

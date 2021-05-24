@@ -1,4 +1,4 @@
-package com.yonyou.convertor.strategy;
+package io.ftwater.convertor.strategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,7 @@ public class DefaultConvertStrategy extends AbstractConvertStrategy {
      * @param file            目标文本文件
      * @param fromCharsetName 原编码
      * @param toCharsetName   目标编码
-     * @param skipExts
-     * @throws Exception
+     * @param skipExts 需要跳过的扩展名
      */
     @Override
     public void doConvert(File file, String fromCharsetName, String toCharsetName, Set<String> skipExts) {
@@ -43,13 +42,13 @@ public class DefaultConvertStrategy extends AbstractConvertStrategy {
      * @param file            目标转码文件
      * @param fromCharsetName 原编码
      * @return 读取的文本内容
-     * @throws Exception
+     * @throws IOException IO异常
      */
     private String readFileFromCharset(File file, String fromCharsetName) throws IOException {
         if (!Charset.isSupported(fromCharsetName)) {
             throw new UnsupportedCharsetException(fromCharsetName);
         }
-        String str = null;
+        String str;
         InputStreamReader reader = new InputStreamReader(new FileInputStream(file), fromCharsetName);
         char[] chs = new char[(int) file.length()];
         reader.read(chs);
@@ -60,12 +59,10 @@ public class DefaultConvertStrategy extends AbstractConvertStrategy {
 
     public String readFileFromCharsetByStream(InputStream is,String fromCharsetName) throws IOException {
         // 读取文件内容为string
-        StringBuilder str = null;
+        StringBuilder str = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is,fromCharsetName))) {
             String line = reader.readLine();
             str.append(line);
-        } catch (Exception e) {
-            throw e;
         }
         return str.toString();
     }
@@ -75,7 +72,7 @@ public class DefaultConvertStrategy extends AbstractConvertStrategy {
      * @param file          目标文件
      * @param toCharsetName 目标编码
      * @param content       文本内容
-     * @throws Exception
+     * @throws IOException 异常
      */
     private void saveFileToCharset(File file, String toCharsetName, String content) throws IOException {
         if (!Charset.isSupported(toCharsetName)) {

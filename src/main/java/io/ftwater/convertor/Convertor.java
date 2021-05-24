@@ -1,4 +1,4 @@
-package com.yonyou.convertor;
+package io.ftwater.convertor;
 
 import java.io.File;
 import java.util.Arrays;
@@ -6,10 +6,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.yonyou.convertor.strategy.IFileConvertStrategy;
+import io.ftwater.convertor.strategy.IFileConvertStrategy;
 
-import com.yonyou.convertor.strategy.ConvertStrategyFactory;
-import com.yonyou.convertor.utils.CommonUtil;
+import io.ftwater.convertor.strategy.ConvertStrategyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

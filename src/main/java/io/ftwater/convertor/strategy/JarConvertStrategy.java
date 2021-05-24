@@ -1,6 +1,6 @@
-package com.yonyou.convertor.strategy;
+package io.ftwater.convertor.strategy;
 
-import com.yonyou.convertor.utils.CommonUtil;
+import io.ftwater.convertor.utils.CommonUtil;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,29 +27,27 @@ public class JarConvertStrategy extends AbstractConvertStrategy {
      * @param file            jar包文件
      * @param fromCharsetName 原编码
      * @param toCharsetName   目标编码
-     * @throws Exception
+     * @throws Exception 异常
      */
     private void convertJar(File file, String fromCharsetName, String toCharsetName) throws Exception {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              JarFile jarFile = new JarFile(file.toString()); // 原jar包
-             JarOutputStream jos = new JarOutputStream(bos);// 新jar包的输出流
+             JarOutputStream jos = new JarOutputStream(bos)// 新jar包的输出流
         ) {
             processJarEntry(jarFile, jos, fromCharsetName, toCharsetName);
             jos.finish();
             bos.writeTo(new FileOutputStream(file.getPath()));
-        } catch (Exception e) {
-            throw e;
         }
     }
 
     /**
      * 处理jar包中文件
      *
-     * @param jarFile
-     * @param jos
-     * @param fromCharsetName
-     * @param toCharsetName
-     * @throws Exception
+     * @param jarFile JarFile
+     * @param jos  JarOutputStream
+     * @param fromCharsetName 源编码
+     * @param toCharsetName 目标编码
+     * @throws Exception 异常
      */
     private void processJarEntry(JarFile jarFile, JarOutputStream jos, String fromCharsetName, String toCharsetName)
             throws Exception {
@@ -79,18 +77,16 @@ public class JarConvertStrategy extends AbstractConvertStrategy {
      * @param toCharsetName   目标编码
      * @param entry           jar包中的entry
      * @param is              entry的inputStream
-     * @throws Exception
+     * @throws Exception 异常
      */
     private void convertEntry(JarOutputStream jos, String fromCharsetName, String toCharsetName, JarEntry entry,
                               InputStream is) throws Exception {
         // 读取文件内容为string
-        String str = null;
-        try (InputStreamReader reader = new InputStreamReader(is, fromCharsetName);) {
+        String str;
+        try (InputStreamReader reader = new InputStreamReader(is, fromCharsetName)) {
             char[] chs = new char[(int) entry.getCompressedSize()];
             reader.read(chs);
             str = new String(chs).trim();
-        } catch (Exception e) {
-            throw e;
         }
         logger.trace("正在转码jarEntry：" + entry.getName());
         // 转码

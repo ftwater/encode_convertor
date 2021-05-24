@@ -1,6 +1,6 @@
-package com.yonyou.convertor.utils;
+package io.ftwater.convertor.utils;
 
-import com.yonyou.convertor.strategy.ConvertStrategyEnum;
+import io.ftwater.convertor.strategy.ConvertStrategyEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +14,15 @@ public class CommonUtil {
         if (lastIndexOfDot==-1){
             return null;
         }
-        String ext = filename.substring(lastIndexOfDot);
-        return ext;
+        return filename.substring(lastIndexOfDot);
     }
     /**
      * 根据支持的扩展名范围确定当前文件是否支持转码
      *
-     * @param fileName
-     * @return
-     * @throws Exception
+     * @param fileName 文件名
+     * @return 文件是否支持转码
      */
-    public static boolean isFileSupportive(String fileName) throws Exception {
+    public static boolean isFileSupportive(String fileName) {
         String ext = CommonUtil.getExtNameOfFile(fileName);
         // 扩展名
         if (StringUtils.isEmpty(ext)) {
@@ -41,11 +39,10 @@ public class CommonUtil {
     /**
      * 根据支持的扩展名范围确定当前文件是否支持转码
      *
-     * @param fileName
-     * @return
-     * @throws Exception
+     * @param fileName 文件名
+     * @return 是否是文本类型文件
      */
-    public static boolean isTextFile(String fileName) throws Exception {
+    public static boolean isTextFile(String fileName) {
         Set<String> textFilesExts = ConvertStrategyEnum.getTextFilesExts();
         return textFilesExts.contains(CommonUtil.getExtNameOfFile(fileName));
     }
